@@ -1,0 +1,144 @@
+package com.example.ProductRestApi.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.ProductRestApi.model.product;
+
+@RestController
+@RequestMapping("Products")
+public class Productcontroller {
+	
+////	http://localhost:1234/Products
+	@GetMapping
+	public ResponseEntity<String> getmsg() {
+		return new ResponseEntity<String>("get Mapping",HttpStatus.FOUND);
+	}
+//	
+////	http://localhost:1234/Products/abc
+////	@GetMapping("/abc")
+////	public String getmsg1() {
+////		return "get Mapping 2";
+////	}
+//////	
+////	@GetMapping("/abcd")
+////	public product getmsg2() {
+////		return new product(121,"immu",8,8);
+////	}
+//	@GetMapping("/abc")
+//	public ResponseEntity<product> msg2(){
+//		return new ResponseEntity<product>(new product(121,"immu",8,8),HttpStatus.FOUND);
+//	}
+//	
+//	
+//	
+////	http://localhost:1234/Products/name/immu	
+//	@GetMapping("/name/{username}")
+//	public String getmsg1(@PathVariable String username) {
+//		return "get Mapping 2 welcom="+username;
+//	}
+//	
+//	
+//	@PostMapping
+//	public String msg1() {
+//		return "post Mapping";
+//	}
+//	
+	
+//ArrayList<product> products=new ArrayList<>();
+//	
+//	Productcontroller() {
+//		products.add(new product(100,"cell",1000,5));
+//		products.add(new product(101,"pen",1000,5));
+//		products.add(new product(102,"mouce",1000,4));
+//		products.add(new product(103,"key",1000,7));
+//	}
+//	
+//	@GetMapping
+//	public ResponseEntity<List<product>> getprods(){
+//		return new ResponseEntity<List<product>>(products,HttpStatus.FOUND);
+//	}
+//	
+//	@GetMapping("{prodname}")
+//	public ResponseEntity<product> getprod(@PathVariable String prodname){
+//		System.out.println(prodname);
+//		
+//		for(product p:products) {
+//			if(p.getProdName().equals(prodname))
+//				return new ResponseEntity<product>(p,HttpStatus.FOUND);
+//		}
+//		product p = new product();
+//		return new ResponseEntity<product>(p,HttpStatus.NOT_FOUND);
+//	}
+//	
+//	
+//	
+//	@PostMapping
+//	public ResponseEntity<product> postprod(@RequestBody product prod){
+//		products.add(prod);
+//		return new ResponseEntity<product>(prod,HttpStatus.FOUND);
+//	}
+//	
+//	@DeleteMapping("{prodid}")
+//	public ResponseEntity<product> delprod(@PathVariable int prodid){
+//		product delproduct=new product();
+//		for(product p:products) {
+//			if(p.getProdId()==(prodid)) {
+//				delproduct=p;
+//				products.remove(delproduct);
+//				return new ResponseEntity<product>(delproduct,HttpStatus.OK);
+//			}
+//				return new ResponseEntity<product>(p,HttpStatus.FOUND);
+//		}
+//		
+//		
+//		delproduct.setProdName("prod nt found");
+//		return new ResponseEntity<product>(delproduct,HttpStatus.OK);
+//	}
+//	
+//	@DeleteMapping("/name/{prodname}")
+//	public ResponseEntity<product> delprod(@PathVariable String prodname){
+//		product delproduct=new product();
+//		for(product p:products) {
+//			if(p.getProdName().equals(prodname)) {
+//				delproduct=p;
+//				products.remove(delproduct);
+//				return new ResponseEntity<product>(delproduct,HttpStatus.OK);
+//			}
+//				return new ResponseEntity<product>(p,HttpStatus.FOUND);
+//		}
+//				
+//		delproduct.setProdName("prod nt found");
+//		return new ResponseEntity<product>(delproduct,HttpStatus.OK);
+//	}
+//	
+//	
+//	
+//	@PutMapping
+//	public ResponseEntity<product> updateprod(@RequestBody product pro ){
+//		product p1=new product();
+//		for(product p:products) {
+//			if(p.getProdId()==(pro.getProdId())) {
+//				products.remove(p);
+//				products.add(pro);
+//				return new ResponseEntity<product>(pro,HttpStatus.OK);
+//			}
+//		}
+//				
+//		p1.setProdName("prod nt found");
+//		return new ResponseEntity<product>(p1,HttpStatus.OK);
+//	}
+	
+	
+}
