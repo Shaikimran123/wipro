@@ -1,0 +1,301 @@
+--> create a student model with whatever properties u want 
+  
+  -> age
+  ->division  A/B/C/D
+  ->sem
+  ->marks
+  
+  --------------------------------------------------
+  
+  -> add new stud to list of studs
+  -> delete student based on name 
+  -> delete stud based on sem
+  -> get stud by div
+  -> get stud by sem
+  -> get stud with marks greater dan d given marks
+  -> update student
+  
+  
+  
+  -----------student.java(model)----------
+  package com.example.studentRestApi.model;
+
+public class Student {
+	
+private	String name;
+private	int age;
+private	char div;
+private	int sem;
+private	int marks;
+	
+	public Student() {
+		
+	}
+
+	public Student(String name, int age, char div, int sem, int marks) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.div = div;
+		this.sem = sem;
+		this.marks = marks;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public char getDiv() {
+		return div;
+	}
+
+	public void setDiv(char div) {
+		this.div = div;
+	}
+
+	public int getSem() {
+		return sem;
+	}
+
+	public void setSem(int sem) {
+		this.sem = sem;
+	}
+
+	public int getMarks() {
+		return marks;
+	}
+
+	public void setMarks(int marks) {
+		this.marks = marks;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [name=" + name + ", age=" + age + ", div=" + div + ", sem=" + sem + ", marks=" + marks + "]";
+	}
+	
+	
+
+}
+
+-------------------------studctrl-
+
+package com.example.studentRestApi.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.studentRestApi.model.Student;
+
+@RequestMapping("students")
+@RestController
+public class StudentCtrl {
+//	
+//	@GetMapping
+//	public ResponseEntity<String> msg(){
+//		return new ResponseEntity<String>("hello",HttpStatus.FOUND);
+//	}
+	
+	
+	ArrayList<Student> students=new ArrayList<>();
+	
+	public StudentCtrl() {
+		students.add(new Student("eliya",7,'A',5,70));
+		students.add(new Student("eliya",8,'B',6,69));
+		students.add(new Student("mahi",7,'B',5,75));
+		students.add(new Student("immu",7,'C',5,74));
+		students.add(new Student("soor",7,'D',5,80));
+		students.add(new Student("ayesha",7,'A',5,90));
+		
+	}
+	@GetMapping
+	public ResponseEntity<List<Student>> getprods(){
+		return new ResponseEntity<List<Student>>(students,HttpStatus.FOUND);
+	}
+	
+	@GetMapping("name/{username}")
+	public ResponseEntity<List<Student>> getprod(@PathVariable String username){
+		System.out.println(username);
+		ArrayList<Student> stud=new ArrayList<>();
+		for(Student p:students) {
+			if(p.getName().equals(username)) {
+				System.out.println(p);
+				stud.add(p);
+			}
+		}
+		int size=stud.size();
+		if(size!=0) {
+			return new ResponseEntity<List<Student>>(stud,HttpStatus.FOUND);
+		}
+		else {
+		stud.add(new Student("NOT FUND",0,'0',0,0));			
+		return new ResponseEntity<List<Student>>(stud,HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	
+	@GetMapping("div/{divi}")
+	public ResponseEntity<List<Student>> getdiv(@PathVariable char divi){
+		System.out.println(divi);
+		ArrayList<Student> stud=new ArrayList<>();
+		for(Student p:students) {
+			if(p.getDiv()==(divi)) {
+				System.out.println(p);
+				stud.add(p);
+			}
+		}
+
+		int size=stud.size();
+		if(size!=0) {
+			return new ResponseEntity<List<Student>>(stud,HttpStatus.FOUND);
+		}
+		else {
+//		ArrayList<Student> pt = new ArrayList<Student>();
+		stud.add(new Student("NOT FUND",0,'0',0,0));			
+		return new ResponseEntity<List<Student>>(stud,HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@GetMapping("sem/{sem}")
+	public ResponseEntity<List<Student>> getsem(@PathVariable int sem){
+		System.out.println(sem);
+		ArrayList<Student> stud=new ArrayList<>();
+		for(Student p:students) {
+			if(p.getSem()==(sem)) {
+				System.out.println(p);
+				stud.add(p);
+			}
+		}
+		int size=stud.size();
+		if(size!=0) {
+			return new ResponseEntity<List<Student>>(stud,HttpStatus.FOUND);
+		}
+		else {
+		stud.add(new Student("NOT FUND",0,'0',0,0));			
+		return new ResponseEntity<List<Student>>(stud,HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	
+	@GetMapping("marks/{marks}")
+	public ResponseEntity<List<Student>> getmarks(@PathVariable int marks){
+		System.out.println(marks);
+		ArrayList<Student> stud=new ArrayList<>();
+		for(Student p:students) {
+			if(p.getMarks()>=(marks)) {
+				System.out.println(p);
+				stud.add(p);
+			}
+		}
+		int size=stud.size();
+		if(size!=0) {
+			return new ResponseEntity<List<Student>>(stud,HttpStatus.FOUND);
+		}
+		else {
+		stud.add(new Student("NOT FUND",0,'0',0,0));			
+		return new ResponseEntity<List<Student>>(stud,HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	
+	@PostMapping
+	public ResponseEntity<Student> postprod(@RequestBody Student prod){
+		students.add(prod);
+		return new ResponseEntity<Student>(prod,HttpStatus.FOUND);
+	}
+
+	
+	@DeleteMapping("/name/{studname}")
+	public ResponseEntity<List<Student>> delprod(@PathVariable String studname){
+		System.out.println(studname);
+		ArrayList<Student> stud=new ArrayList<>();
+		for(Student p:students) {
+			if(p.getName().equals(studname)) {
+				System.out.println(p);
+				stud.add(p);
+			}
+		}
+		for(Student ds:stud) {
+			students.remove(ds);
+		}
+		int size=stud.size();
+		if(size!=0) {			
+			return new ResponseEntity<List<Student>>(stud,HttpStatus.OK);
+		}
+		else {
+
+		stud.add(new Student("NOT FUND",0,'0',0,0));			
+		return new ResponseEntity<List<Student>>(stud,HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	
+	
+	@DeleteMapping("/sem/{sem}")
+	public ResponseEntity<List<Student>> delsem(@PathVariable int sem){
+		System.out.println(sem);
+		ArrayList<Student> stud=new ArrayList<>();
+		for(Student p:students) {
+			if(p.getSem()==(sem)) {
+				System.out.println(p);
+				stud.add(p);
+			}
+		}
+		for(Student ds:stud) {
+			students.remove(ds);
+		}
+		int size=stud.size();
+		if(size!=0) {			
+			return new ResponseEntity<List<Student>>(stud,HttpStatus.OK);
+		}
+		else {
+
+		stud.add(new Student("NOT FUND",0,'0',0,0));			
+		return new ResponseEntity<List<Student>>(stud,HttpStatus.NOT_FOUND);
+		}
+	}
+
+	
+	@PutMapping
+	public ResponseEntity<Student> updateprod(@RequestBody Student pro ){
+		Student p1=new Student();
+	for(Student p:students) {
+		if(p.getName().equals(pro.getName())) {
+			students.remove(p);
+			students.add(pro);
+			return new ResponseEntity<Student>(pro,HttpStatus.OK);
+		}
+	}
+			
+	p1.setName("prod nt found");
+	return new ResponseEntity<Student>(p1,HttpStatus.OK);
+}
+
+
+	
+	
+	
+}
